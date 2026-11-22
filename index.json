@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "hostApiVersion": 1,
-  "generatedAt": "2026-11-22T14:24:26Z",
+  "generatedAt": "2026-11-22T15:02:59Z",
   "plugins": [
     {
       "id": "bell",
@@ -11,8 +11,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.bell.BellPlugin",
       "requires": [],
-      "sizeBytes": 6538,
-      "sha256": "373b5e53e121bfad4e9c9ecc0b35b9a1724874261156da245e36c413d6239236",
+      "sizeBytes": 6535,
+      "sha256": "39bc5f60365cc5d047985ec371a3ad40353269848562b9d5eb477eb9c10159a4",
       "downloadUrl": "dist/bell-0.1.0.jar",
       "sigUrl": "",
       "description": "任务完成或出错时响铃震动。",
@@ -28,8 +28,8 @@
       "requires": [
         "SCREENSHOT"
       ],
-      "sizeBytes": 12853,
-      "sha256": "4ec560470e0b28ffdc3b22052e2935def48dfeeb46596d721794cb2e989f5e7d",
+      "sizeBytes": 12832,
+      "sha256": "d631e1b6e2a58c9db44297c27997bcb08b6006601a4854daa2d8f86d831fe1d0",
       "downloadUrl": "dist/color-0.1.0.jar",
       "sigUrl": "",
       "description": "读取区域内像素颜色并做阈值比较。",
@@ -45,8 +45,8 @@
       "requires": [
         "OVERLAY"
       ],
-      "sizeBytes": 1694,
-      "sha256": "0379aa46e9d7da7035553e33a5ae13b6d160451fd4ede51c95502bdcfd6d5724",
+      "sizeBytes": 1692,
+      "sha256": "dd7524d4aac9fb8593a8937946edfad7c28c2e1cb3b330eb2a28c1559a84d66c",
       "downloadUrl": "dist/console-ui-0.1.0.jar",
       "sigUrl": "",
       "description": "控制台透明度与显隐已在主程序设置里。",
@@ -60,8 +60,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.counter.CounterPlugin",
       "requires": [],
-      "sizeBytes": 5822,
-      "sha256": "ca237c50f0cc59ed25fda75f8a49bc0796ddd995d6d1ed2b5bf478d5dd3fecb5",
+      "sizeBytes": 5815,
+      "sha256": "a4d2aa086978fa557cb7530cf71ec872316a0d3bae4e21b2e0c719c167165dc2",
       "downloadUrl": "dist/counter-0.1.0.jar",
       "sigUrl": "",
       "description": "按执行次数计数，到达目标后执行动作。",
@@ -75,8 +75,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.flowcontrol.FlowControlPlugin",
       "requires": [],
-      "sizeBytes": 13398,
-      "sha256": "52e8a7b2342a34bd32460917ad8ebb2a7fcd718bcb55999d8c4538058756c9fc",
+      "sizeBytes": 13304,
+      "sha256": "9ff92b293eb2b5a6d1656cb33fcc61f2694ebe641455d543ac10eeccb2caaa86",
       "downloadUrl": "dist/flow-control-0.1.0.jar",
       "sigUrl": "",
       "description": "分支、跳步、延迟与超时（策略扩展点，支配全部步骤）。",
@@ -90,8 +90,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.keepalive.KeepalivePlugin",
       "requires": [],
-      "sizeBytes": 1664,
-      "sha256": "3d0cea78641bd9b076c0dd2b98bac110a389e28f9523b6c17c16844cd6ccab59",
+      "sizeBytes": 1667,
+      "sha256": "65691ac900f6d69261a913ef35a80385de220ce84feba09066df00d48ef41ad5",
       "downloadUrl": "dist/keepalive-0.1.0.jar",
       "sigUrl": "",
       "description": "前台服务保活已在主程序里。",
@@ -107,8 +107,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 7991,
-      "sha256": "194ba5b33d26ebefeca01411a81258fa9dc7558426b7678c44b929e832b74481",
+      "sizeBytes": 8004,
+      "sha256": "c5bc49e3aee908d2e78a3bb807aa32607a3cd073149ef4ac4fcae30b4ab0d69b",
       "downloadUrl": "dist/keys-0.1.0.jar",
       "sigUrl": "",
       "description": "发送返回、桌面、菜单、回车、删除键。",
@@ -122,8 +122,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.logs.LogsPlugin",
       "requires": [],
-      "sizeBytes": 7025,
-      "sha256": "c4b4e71dd03246b6d6069074301ae558fd9db6887d04a17d8ddc41c2bb8408fb",
+      "sizeBytes": 7055,
+      "sha256": "5d3ee9b952cb308aea73aabae9850bb955c393b114e7a86287e9dd9e12b08a4d",
       "downloadUrl": "dist/logs-0.1.0.jar",
       "sigUrl": "",
       "description": "往运行日志里写一条自定义内容。",
@@ -139,8 +139,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 10272,
-      "sha256": "a3629088bbd86212fb50f80facb45353b7ca6fb9cd15d49d95c11587b4ba76c4",
+      "sizeBytes": 10252,
+      "sha256": "795837fce7c75f04886ac6803472f095352b08d86265890cf8cd74fdd18b7173",
       "downloadUrl": "dist/multi-touch-0.1.0.jar",
       "sigUrl": "",
       "description": "多指同时按下、保持与释放，最多十指。",
@@ -157,8 +157,8 @@
         "SCREENSHOT",
         "NETWORK"
       ],
-      "sizeBytes": 11294,
-      "sha256": "c1e27645269361fdc64df9514a44e290af5a7e7b31e96af87cb18ec6ecebaddd",
+      "sizeBytes": 11382,
+      "sha256": "d5c1f300a7edc9fd297031eb5f624cb75350359a523074bccc5ccab70caeafc8",
       "downloadUrl": "dist/number-compare-0.1.0.jar",
       "sigUrl": "",
       "description": "从 OCR 结果里取出数字再比较大小。",
@@ -175,8 +175,8 @@
         "SCREENSHOT",
         "NETWORK"
       ],
-      "sizeBytes": 10342,
-      "sha256": "2ae25ba6773cd695e82a85f2df4dadc1aa4f1ccc2a987578e8aa751816e51f11",
+      "sizeBytes": 10358,
+      "sha256": "3dcdc8439123caedbc4f6f4a494c03e3705d6531f623654e6206660a089e0e11",
       "downloadUrl": "dist/ocr-text-0.1.0.jar",
       "sigUrl": "",
       "description": "截图后调用宿主 OCR 拿到文字并判断。",
@@ -193,8 +193,8 @@
         "OVERLAY",
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 8565,
-      "sha256": "7281bb302b29b223ef94133079f392abc5b20418e410dee96108ec5f56a8f09e",
+      "sizeBytes": 8550,
+      "sha256": "755a9f00466ce4ed7b4ebc880275f269939860f1134f7bb37a039ec9d2a5d1c4",
       "downloadUrl": "dist/recorder-0.1.0.jar",
       "sigUrl": "",
       "description": "录下人工操作并转成步骤。",
@@ -210,8 +210,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 10932,
-      "sha256": "1187d9f9c8e8819dad16e78e3f7d3a08fb99997ca4056ad18340946d45b15472",
+      "sizeBytes": 10927,
+      "sha256": "88fa96f0256529908d1ebec64336be18e98c8843a2cb22eff153193e85c8e9ec",
       "downloadUrl": "dist/region-random-0.1.0.jar",
       "sigUrl": "",
       "description": "在已画好的区域里均匀随机取点。",
@@ -225,8 +225,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.rules.RulesPlugin",
       "requires": [],
-      "sizeBytes": 1657,
-      "sha256": "283a2c400d9b2a0a651d518408f715c10926443a3cc1715589ad898cd65b03d5",
+      "sizeBytes": 1659,
+      "sha256": "3d2d28d30a0b5629ac2a2186b0ba65eec2a7bb3be4b87d7b763cef0a0d96c2e1",
       "downloadUrl": "dist/rules-0.1.0.jar",
       "sigUrl": "",
       "description": "规则管理（多开/回收站/导入导出）已在主程序内置。",
@@ -240,8 +240,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.scheduler.SchedulerPlugin",
       "requires": [],
-      "sizeBytes": 10501,
-      "sha256": "12860b36b6e9c37b17c0dfa9a200414b50a178f274fc02741bc3b3603910d449",
+      "sizeBytes": 10550,
+      "sha256": "aef97cdd8223da962d631b76f203a32ecbd419bf15a2eb01dd4f7a084012cfa6",
       "downloadUrl": "dist/scheduler-0.1.0.jar",
       "sigUrl": "",
       "description": "等到某个时刻或星期几再继续。",
@@ -257,8 +257,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 10499,
-      "sha256": "0964ebc2072ca4addc74334c7acf7888e35ae82030524e0dc946fcd11431dcbb",
+      "sizeBytes": 10533,
+      "sha256": "80abd0e2cb9561171e5015cc67f75c9de9e8a4bf42a375434ec2183556812cb9",
       "downloadUrl": "dist/swipe-0.1.0.jar",
       "sigUrl": "",
       "description": "两点之间的滑动，快中慢三档时长预设。",
@@ -274,8 +274,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 15557,
-      "sha256": "2c05cc8faf48c6b1197963e08706f766e13128ee20bd352e20baac33f7ea074e",
+      "sizeBytes": 15536,
+      "sha256": "69d8d28cc08575c71b8bfe8fc333e2e08dc53c1edd33d2f82298de1b3cbf8a9d",
       "downloadUrl": "dist/tap-styles-0.1.0.jar",
       "sigUrl": "",
       "description": "长按、连击与频率模式三种点击方式。",
@@ -291,8 +291,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 11241,
-      "sha256": "47db5570cd8284ccd62020ef85265b48c294a65a6faa9ae1d5ea05a1e03963aa",
+      "sizeBytes": 11244,
+      "sha256": "b1b80e614745876dc7a50e53f236a6276f60a17b2fdee020af7d492f51e586a6",
       "downloadUrl": "dist/text-input-0.1.0.jar",
       "sigUrl": "",
       "description": "向当前焦点输入文本，支持顺序列表与字符集随机。",
@@ -306,8 +306,8 @@
       "minHostVersionCode": 1,
       "entryClass": "com.autotapper.plugin.timecompare.TimeComparePlugin",
       "requires": [],
-      "sizeBytes": 8601,
-      "sha256": "c5b321cbb7c3088da6deb3813dabbd2a23359421b81be4ecea5495fa77bf2a79",
+      "sizeBytes": 8507,
+      "sha256": "3fa168851e4ba23a4994e87b6a5a5576206bf240bdb4aa67883a09431a706d93",
       "downloadUrl": "dist/time-compare-0.1.0.jar",
       "sigUrl": "",
       "description": "用校准过的宿主时间做时间窗口判断。",
@@ -323,8 +323,8 @@
       "requires": [
         "ACCESSIBILITY"
       ],
-      "sizeBytes": 10933,
-      "sha256": "7c418bcf9fabbb40da6df79e6005114b96c1779ac730ba0d93eb1136672f28be",
+      "sizeBytes": 10870,
+      "sha256": "d7fb63cec895d9276e044353becd9d274f5148118c9d4e9990973ac7c6f30d91",
       "downloadUrl": "dist/view-id-0.1.0.jar",
       "sigUrl": "",
       "description": "按 viewId 或文本找到无障碍节点再点击。",
