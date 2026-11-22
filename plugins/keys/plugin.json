@@ -1,0 +1,11 @@
+{
+  "id": "keys",
+  "name": "按键",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.keys.KeysPlugin",
+  "requires": [
+    "ACCESSIBILITY"
+  ]
+}

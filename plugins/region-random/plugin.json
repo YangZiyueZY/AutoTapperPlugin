@@ -1,0 +1,11 @@
+{
+  "id": "region-random",
+  "name": "区域随机",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.regionrandom.RegionRandomPlugin",
+  "requires": [
+    "ACCESSIBILITY"
+  ]
+}

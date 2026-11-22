@@ -1,0 +1,12 @@
+{
+  "id": "tap-styles",
+  "name": "高级点击方式",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.tapstyles.TapStylesPlugin",
+  "requires": [
+    "SHIZUKU",
+    "ACCESSIBILITY"
+  ]
+}

@@ -1,0 +1,6 @@
+// 模板插件模块：复制整个目录到 plugins/<你的插件 id>/ 再改这里
+dependencies {
+    // 编译期依赖主程序契约；绝不能写成 implementation，否则 Api.kt 会被打进 jar，
+    // 运行时与宿主重复定义，插件直接崩溃。
+    compileOnly project(":sdk")
+}

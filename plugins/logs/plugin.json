@@ -1,0 +1,9 @@
+{
+  "id": "logs",
+  "name": "实时日志",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.logs.LogsPlugin",
+  "requires": []
+}

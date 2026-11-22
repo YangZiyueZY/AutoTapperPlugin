@@ -1,0 +1,12 @@
+{
+  "id": "multi-touch",
+  "name": "多点手势",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.multitouch.MultiTouchPlugin",
+  "requires": [
+    "SHIZUKU",
+    "ACCESSIBILITY"
+  ]
+}

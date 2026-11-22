@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "hostApiVersion": 1,
+  "generatedAt": "2026-11-22T14:24:26Z",
+  "plugins": [
+    {
+      "id": "bell",
+      "name": "响铃",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.bell.BellPlugin",
+      "requires": [],
+      "sizeBytes": 6538,
+      "sha256": "373b5e53e121bfad4e9c9ecc0b35b9a1724874261156da245e36c413d6239236",
+      "downloadUrl": "dist/bell-0.1.0.jar",
+      "sigUrl": "",
+      "description": "任务完成或出错时响铃震动。",
+      "changelog": "0.1.0：响铃步骤（时长 / 震动 / 之后继续·暂停·停止）。"
+    },
+    {
+      "id": "color",
+      "name": "识色",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.color.ColorPlugin",
+      "requires": [
+        "SCREENSHOT"
+      ],
+      "sizeBytes": 12853,
+      "sha256": "4ec560470e0b28ffdc3b22052e2935def48dfeeb46596d721794cb2e989f5e7d",
+      "downloadUrl": "dist/color-0.1.0.jar",
+      "sigUrl": "",
+      "description": "读取区域内像素颜色并做阈值比较。",
+      "changelog": "0.1.0：识色步骤，支持多色、容差与最少命中像素数。"
+    },
+    {
+      "id": "console-ui",
+      "name": "控制台自定义",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.consoleui.ConsoleUiPlugin",
+      "requires": [
+        "OVERLAY"
+      ],
+      "sizeBytes": 1694,
+      "sha256": "0379aa46e9d7da7035553e33a5ae13b6d160451fd4ede51c95502bdcfd6d5724",
+      "downloadUrl": "dist/console-ui-0.1.0.jar",
+      "sigUrl": "",
+      "description": "控制台透明度与显隐已在主程序设置里。",
+      "changelog": "0.1.0：本插件暂不提供控制台格子——透明度滑杆在主界面「点击配置」里。"
+    },
+    {
+      "id": "counter",
+      "name": "计数",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.counter.CounterPlugin",
+      "requires": [],
+      "sizeBytes": 5822,
+      "sha256": "ca237c50f0cc59ed25fda75f8a49bc0796ddd995d6d1ed2b5bf478d5dd3fecb5",
+      "downloadUrl": "dist/counter-0.1.0.jar",
+      "sigUrl": "",
+      "description": "按执行次数计数，到达目标后执行动作。",
+      "changelog": "0.1.0：计数步骤，到达目标后可继续 / 停止 / 暂停 / 跳步 / 只记日志。"
+    },
+    {
+      "id": "flow-control",
+      "name": "流程控制",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.flowcontrol.FlowControlPlugin",
+      "requires": [],
+      "sizeBytes": 13398,
+      "sha256": "52e8a7b2342a34bd32460917ad8ebb2a7fcd718bcb55999d8c4538058756c9fc",
+      "downloadUrl": "dist/flow-control-0.1.0.jar",
+      "sigUrl": "",
+      "description": "分支、跳步、延迟与超时（策略扩展点，支配全部步骤）。",
+      "changelog": "0.1.0：策略插件（全局延迟/超时/重复/失败分支）+ 流程设置 / 延迟 / 跳转三个步骤。"
+    },
+    {
+      "id": "keepalive",
+      "name": "后台保活",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.keepalive.KeepalivePlugin",
+      "requires": [],
+      "sizeBytes": 1664,
+      "sha256": "3d0cea78641bd9b076c0dd2b98bac110a389e28f9523b6c17c16844cd6ccab59",
+      "downloadUrl": "dist/keepalive-0.1.0.jar",
+      "sigUrl": "",
+      "description": "前台服务保活已在主程序里。",
+      "changelog": "0.1.0：本插件暂不提供保活提供者——运行中的注入服务本身就是前台服务。"
+    },
+    {
+      "id": "keys",
+      "name": "按键",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.keys.KeysPlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 7991,
+      "sha256": "194ba5b33d26ebefeca01411a81258fa9dc7558426b7678c44b929e832b74481",
+      "downloadUrl": "dist/keys-0.1.0.jar",
+      "sigUrl": "",
+      "description": "发送返回、桌面、菜单、回车、删除键。",
+      "changelog": "0.1.0：按键步骤，菜单键在无障碍通道下会如实提示改用 Shizuku。"
+    },
+    {
+      "id": "logs",
+      "name": "实时日志",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.logs.LogsPlugin",
+      "requires": [],
+      "sizeBytes": 7025,
+      "sha256": "c4b4e71dd03246b6d6069074301ae558fd9db6887d04a17d8ddc41c2bb8408fb",
+      "downloadUrl": "dist/logs-0.1.0.jar",
+      "sigUrl": "",
+      "description": "往运行日志里写一条自定义内容。",
+      "changelog": "0.1.0：写日志步骤（四级 + {count}/{time} 占位符）。"
+    },
+    {
+      "id": "multi-touch",
+      "name": "多点手势",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.multitouch.MultiTouchPlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 10272,
+      "sha256": "a3629088bbd86212fb50f80facb45353b7ca6fb9cd15d49d95c11587b4ba76c4",
+      "downloadUrl": "dist/multi-touch-0.1.0.jar",
+      "sigUrl": "",
+      "description": "多指同时按下、保持与释放，最多十指。",
+      "changelog": "0.1.0：多点同时按下步骤，按区域个数决定指头数。"
+    },
+    {
+      "id": "number-compare",
+      "name": "数字对比",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.numbercompare.NumberComparePlugin",
+      "requires": [
+        "SCREENSHOT",
+        "NETWORK"
+      ],
+      "sizeBytes": 11294,
+      "sha256": "c1e27645269361fdc64df9514a44e290af5a7e7b31e96af87cb18ec6ecebaddd",
+      "downloadUrl": "dist/number-compare-0.1.0.jar",
+      "sigUrl": "",
+      "description": "从 OCR 结果里取出数字再比较大小。",
+      "changelog": "0.1.0：数字对比步骤，支持定位字符、忽略字符与五种比较。"
+    },
+    {
+      "id": "ocr-text",
+      "name": "识字",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.ocrtext.OcrTextPlugin",
+      "requires": [
+        "SCREENSHOT",
+        "NETWORK"
+      ],
+      "sizeBytes": 10342,
+      "sha256": "2ae25ba6773cd695e82a85f2df4dadc1aa4f1ccc2a987578e8aa751816e51f11",
+      "downloadUrl": "dist/ocr-text-0.1.0.jar",
+      "sigUrl": "",
+      "description": "截图后调用宿主 OCR 拿到文字并判断。",
+      "changelog": "0.1.0：识字步骤，支持全等 / 包含 / 包含全部。"
+    },
+    {
+      "id": "recorder",
+      "name": "录制回放",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.recorder.RecorderPlugin",
+      "requires": [
+        "OVERLAY",
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 8565,
+      "sha256": "7281bb302b29b223ef94133079f392abc5b20418e410dee96108ec5f56a8f09e",
+      "downloadUrl": "dist/recorder-0.1.0.jar",
+      "sigUrl": "",
+      "description": "录下人工操作并转成步骤。",
+      "changelog": "0.1.0：录制步骤。点按会录成基础点击；滑动没有对应内置步骤，如实跳过并提示。"
+    },
+    {
+      "id": "region-random",
+      "name": "区域随机",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.regionrandom.RegionRandomPlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 10932,
+      "sha256": "1187d9f9c8e8819dad16e78e3f7d3a08fb99997ca4056ad18340946d45b15472",
+      "downloadUrl": "dist/region-random-0.1.0.jar",
+      "sigUrl": "",
+      "description": "在已画好的区域里均匀随机取点。",
+      "changelog": "0.1.0：区域点击，支持顺序 / 随机 / 总是从第一个。"
+    },
+    {
+      "id": "rules",
+      "name": "规则管理",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.rules.RulesPlugin",
+      "requires": [],
+      "sizeBytes": 1657,
+      "sha256": "283a2c400d9b2a0a651d518408f715c10926443a3cc1715589ad898cd65b03d5",
+      "downloadUrl": "dist/rules-0.1.0.jar",
+      "sigUrl": "",
+      "description": "规则管理（多开/回收站/导入导出）已在主程序内置。",
+      "changelog": "0.1.0：本插件不提供步骤类型——规则列表与回收站写在主程序的「规则」页。"
+    },
+    {
+      "id": "scheduler",
+      "name": "定时",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.scheduler.SchedulerPlugin",
+      "requires": [],
+      "sizeBytes": 10501,
+      "sha256": "12860b36b6e9c37b17c0dfa9a200414b50a178f274fc02741bc3b3603910d449",
+      "downloadUrl": "dist/scheduler-0.1.0.jar",
+      "sigUrl": "",
+      "description": "等到某个时刻或星期几再继续。",
+      "changelog": "0.1.0：定时等待步骤（每天某时刻 / 指定星期 / 固定时长，北京时间）。"
+    },
+    {
+      "id": "swipe",
+      "name": "滑动",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.swipe.SwipePlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 10499,
+      "sha256": "0964ebc2072ca4addc74334c7acf7888e35ae82030524e0dc946fcd11431dcbb",
+      "downloadUrl": "dist/swipe-0.1.0.jar",
+      "sigUrl": "",
+      "description": "两点之间的滑动，快中慢三档时长预设。",
+      "changelog": "0.1.0：滑动步骤，起点与终点各取一个区域，时长取区间随机值。"
+    },
+    {
+      "id": "tap-styles",
+      "name": "高级点击方式",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.tapstyles.TapStylesPlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 15557,
+      "sha256": "2c05cc8faf48c6b1197963e08706f766e13128ee20bd352e20baac33f7ea074e",
+      "downloadUrl": "dist/tap-styles-0.1.0.jar",
+      "sigUrl": "",
+      "description": "长按、连击与频率模式三种点击方式。",
+      "changelog": "0.1.0：长按 / 连击 / 频率模式三种步骤类型，区间随机按住时长与间隔。"
+    },
+    {
+      "id": "text-input",
+      "name": "文本输入",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.textinput.TextInputPlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 11241,
+      "sha256": "47db5570cd8284ccd62020ef85265b48c294a65a6faa9ae1d5ea05a1e03963aa",
+      "downloadUrl": "dist/text-input-0.1.0.jar",
+      "sigUrl": "",
+      "description": "向当前焦点输入文本，支持顺序列表与字符集随机。",
+      "changelog": "0.1.0：文本输入步骤，固定 / 顺序 / 随机列表 / 字符集随机。"
+    },
+    {
+      "id": "time-compare",
+      "name": "时间对比",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.timecompare.TimeComparePlugin",
+      "requires": [],
+      "sizeBytes": 8601,
+      "sha256": "c5b321cbb7c3088da6deb3813dabbd2a23359421b81be4ecea5495fa77bf2a79",
+      "downloadUrl": "dist/time-compare-0.1.0.jar",
+      "sigUrl": "",
+      "description": "用校准过的宿主时间做时间窗口判断。",
+      "changelog": "0.1.0：时间对比步骤，支持时刻前后、时间段与星期几。"
+    },
+    {
+      "id": "view-id",
+      "name": "识ID",
+      "version": "0.1.0",
+      "apiVersion": 1,
+      "minHostVersionCode": 1,
+      "entryClass": "com.autotapper.plugin.viewid.ViewIdPlugin",
+      "requires": [
+        "ACCESSIBILITY"
+      ],
+      "sizeBytes": 10933,
+      "sha256": "7c418bcf9fabbb40da6df79e6005114b96c1779ac730ba0d93eb1136672f28be",
+      "downloadUrl": "dist/view-id-0.1.0.jar",
+      "sigUrl": "",
+      "description": "按 viewId 或文本找到无障碍节点再点击。",
+      "changelog": "0.1.0：识 ID 步骤，支持 viewId / 文本 / 描述查找，可配文本兜底。"
+    }
+  ]
+}

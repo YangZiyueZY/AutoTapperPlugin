@@ -1,0 +1,43 @@
+// AutoTapperPlugin 多模块工程：纯 JVM Kotlin（刻意不使用 AGP）
+// 插件只依赖 JDK + 主程序 API，所以整个仓库不需要 Android SDK 就能编译。
+pluginManagement {
+    repositories {
+        // 国内网络下 gradlePluginPortal 常常超时，先用阿里云镜像兜一层（与主程序工程一致）
+        if (System.getenv("SKIP_ALIYUN") != "true") {
+            maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        if (System.getenv("SKIP_ALIYUN") != "true") {
+            maven { url 'https://maven.aliyun.com/repository/public' }
+        }
+        mavenCentral()
+    }
+}
+
+rootProject.name = "AutoTapperPlugin"
+
+// 契约 + 编译期桩
+include(":sdk")
+
+// 20 个插件模块：目录名就是插件 id（index.json 里的 id）
+// 注意这里是 Groovy 不是 Kotlin：listFiles() 返回 File[]，没有 filter/sortedBy，
+// 用 findAll + sort 才是对的（之前写成 Kotlin 风格的 ?.filter，配置阶段直接炸）。
+def pluginsRoot = file("plugins")
+if (pluginsRoot.isDirectory()) {
+    pluginsRoot.listFiles()
+            .findAll { it.isDirectory() && new File(it, "build.gradle").isFile() }
+            .sort { a, b -> a.name <=> b.name }
+            .each { d -> include(":plugins:" + d.name) }
+}
+
+// 模板插件参与编译（保证模板永远可编译），但不参与发布
+include(":template:new-plugin")
+
+// 假宿主：只给测试用，纯 JVM 模块，插件通过 testImplementation 依赖它
+include(":testkit")

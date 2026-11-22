@@ -1,0 +1,12 @@
+{
+  "id": "recorder",
+  "name": "录制回放",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.recorder.RecorderPlugin",
+  "requires": [
+    "OVERLAY",
+    "ACCESSIBILITY"
+  ]
+}

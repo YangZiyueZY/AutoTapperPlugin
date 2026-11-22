@@ -1,0 +1,17 @@
+// 插件测试模块的构建配置：只依赖契约与测试运行库，绝不反向依赖任何插件。
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+}
+
+dependencies {
+    compileOnly project(":sdk")
+
+    // 测试里要跑插件的 execute()，所以契约、协程、org.json 都换成真实实现。
+    testImplementation project(":sdk")
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
+    testImplementation 'org.json:json:20240303'
+}
+
+// testkit 自身的主源码是纯 JVM 代码，用到的 android.* / org.json.* 桩来自 sdk 的 jar。

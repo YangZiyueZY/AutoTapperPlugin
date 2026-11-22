@@ -1,0 +1,172 @@
+name: build-and-release
+
+# 推上 main 就构建 → 转 dex → 校验 → 签名 → 发 Release（备份渠道）
+# → 用相对路径回写 index.json → 把 dist/ 与 index.json 一起提交回 main。
+# 为什么 jar 要进仓库：Release 资产只有 github.com 能下，国内经常下不动；
+# jsDelivr 这类静态镜像只镜像仓库文件、不镜像 Release 资产，
+# 所以下发走 dist/ 里的 jar + 索引里的相对路径，镜像域名就能直接下载。
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-and-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # 机器人自己提交的产物/index 更新不再触发新一轮构建
+    if: "!contains(github.event.head_commit.message || '', '[skip ci]')"
+    runs-on: ubuntu-latest
+    env:
+      PLUGIN_VERSION: "0.1.0"
+    steps:
+      - name: 检出
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 安装 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: 安装 Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      # 纯 JVM 工程，不需要 Android SDK；d8 用 runner 镜像里预装的 ANDROID_HOME
+      - name: 构建 sdk / 模板 / 20 个插件
+        run: gradle --no-daemon --stacktrace build
+
+      - name: 收集 jar 到 dist/
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          shopt -s nullglob
+          # dist/ 现在要入库，先清掉上一版产物：
+          # 否则旧版本 jar 会越堆越多，还会被 d8 与索引一起扫到，仓库无限变大。
+          rm -f dist/*.jar dist/*.jar.sig
+          count=0
+          for dir in plugins/*/; do
+            id=$(basename "$dir")
+            jar="$dir/build/libs/$id-$PLUGIN_VERSION.jar"
+            if [ ! -f "$jar" ]; then
+              echo "::error::模块 $id 没有产出 $jar"
+              exit 1
+            fi
+            cp "$jar" "dist/$id-$PLUGIN_VERSION.jar"
+            count=$((count + 1))
+            echo "已收集 $id-$PLUGIN_VERSION.jar"
+          done
+          if [ "$count" -eq 0 ]; then
+            echo "::error::plugins/ 下一个模块都没构建出来"
+            exit 1
+          fi
+          ls -l dist
+
+      # Gradle 产的是 JVM 字节码（.class），而 Android 的 DexClassLoader 只认 zip 里的 classes.dex。
+      # 少了这一步，插件下发后装载时必然报 "no classes.dex"，一个都跑不起来。
+      - name: 转成 Android dex（d8）
+        env:
+          ANDROID_BUILD_TOOLS: ${{ env.ANDROID_HOME }}/build-tools/35.0.0
+        run: |
+          set -euo pipefail
+          python3 tools/dex-plugins.py --dist dist --min-api 26
+
+      # 下发物必须是"薄"的：只有 classes.dex + plugin.json。
+      # 一旦夹带 sdk 桩或协程库，运行时就会和宿主里的同名 dex 打架。
+      - name: 校验 dex jar 内容
+        run: |
+          set -euo pipefail
+          for jar in dist/*.jar; do
+            if ! unzip -l "$jar" | grep -q 'classes.dex'; then
+              echo "::error::$jar 没有 classes.dex（d8 步骤没生效）"
+              exit 1
+            fi
+            if ! unzip -p "$jar" META-INF/autotapper/plugin.json > /tmp/meta.json 2>/dev/null; then
+              echo "::error::$jar 缺少 META-INF/autotapper/plugin.json（plugin.json 没被 jar 任务打进包里）"
+              exit 1
+            fi
+            extras=$(unzip -Z1 "$jar" | grep -vE '^(classes\.dex|META-INF/autotapper/plugin\.json)$' || true)
+            if [ -n "$extras" ]; then
+              echo "::error::$jar 含多余条目：$extras"
+              exit 1
+            fi
+            echo "OK $(basename "$jar") -> $(python3 -c "import json;print(json.load(open('/tmp/meta.json'))['entryClass'])")"
+          done
+
+      - name: 计算 Release tag
+        run: echo "TAG=v$(date -u +%Y%m%d)" >> "$GITHUB_ENV"
+
+      - name: 签名（SHA256withRSA）
+        env:
+          PLUGIN_SIGNING_KEY: ${{ secrets.PLUGIN_SIGNING_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${PLUGIN_SIGNING_KEY:-}" ]; then
+            echo "::warning::没有配置 secrets.PLUGIN_SIGNING_KEY，跳过签名；index.json 的 sigUrl 会留空，主程序会标记为未签名。"
+            exit 0
+          fi
+          KEY=/tmp/plugin_signing_key.pem
+          # secret 里可以是 PEM 原文，也可以是 base64 过的 PEM
+          if printf '%s' "$PLUGIN_SIGNING_KEY" | grep -q "BEGIN .*PRIVATE KEY"; then
+            printf '%s\n' "$PLUGIN_SIGNING_KEY" > "$KEY"
+          else
+            printf '%s' "$PLUGIN_SIGNING_KEY" | base64 -d > "$KEY"
+          fi
+          for jar in dist/*.jar; do
+            openssl dgst -sha256 -sign "$KEY" -out "$jar.sig" "$jar"
+            echo "已签名 $(basename "$jar")"
+          done
+          rm -f "$KEY"
+
+      # 备份渠道：Release 资产在 GitHub 上最快，但国内基本下不动，
+      # 所以只当作备用下载点保留，主程序默认走下面的相对路径。
+      - name: 创建或更新 Release（备份渠道）
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: 插件构建 ${{ env.TAG }}
+          body: |
+            自动构建的插件产物。
+            - 插件版本：${{ env.PLUGIN_VERSION }}
+            - 提交：${{ github.sha }}
+            - 主下发渠道是仓库内 dist/ 目录（index.json 用相对路径），这里是备份。
+          files: |
+            dist/*.jar
+            dist/*.jar.sig
+          fail_on_unmatched_files: false
+
+      # relative 模式：downloadUrl 写 dist/<id>-<版本>.jar，主程序按仓库 raw 根拼地址，
+      # 换成镜像域名也能下载。必须放在签名之后，否则 sigUrl 会漏掉 .sig。
+      - name: 回写 index.json（相对路径）
+        run: |
+          set -euo pipefail
+          python3 tools/update-index.py \
+            --dist dist \
+            --url-mode relative \
+            --repo "$GITHUB_REPOSITORY" \
+            --version "$PLUGIN_VERSION"
+          python3 tools/verify-index.py --dist dist --strict
+
+      # dist/ 与 index.json 必须一起提交：少了 jar，索引里的相对路径就是死链；
+      # 少了 index.json，新 jar 没人知道。提交信息带 [skip ci]，不会自激。
+      - name: 把 dist/ 与 index.json 提交回 main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist index.json
+          if git diff --cached --quiet; then
+            echo "dist/ 与 index.json 都没有变化，跳过提交"
+            exit 0
+          fi
+          git commit -m "chore: 更新插件产物与 index.json [skip ci]"
+          git push

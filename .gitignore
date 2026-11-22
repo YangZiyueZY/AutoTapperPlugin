@@ -1,0 +1,43 @@
+# Gradle
+.gradle/
+build/
+*/build/
+**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Android / IDE
+local.properties
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# 构建产物与发布中间件
+# dist/ 必须入库：CI 产出的 dex jar 就放在 dist/，index.json 用 dist/<id>-<版本>.jar
+# 这种相对路径下发。国内下不动 GitHub Release 资产，而 jsDelivr 这类镜像只镜像
+# 仓库文件、不镜像 Release 资产，所以 jar 得躺在仓库里。
+# 只放行 jar 与分离签名，别的中间产物照样不进仓库。
+dist/*
+!dist/*.jar
+!dist/*.jar.sig
+*.part
+*.hprof
+*.log
+# 本地跑 tools/*.py 会生成，别入库
+__pycache__/
+
+# 签名私钥绝不入库
+*.pem
+*.p12
+*.jks
+*.keystore
+
+# 系统垃圾
+.DS_Store
+Thumbs.db

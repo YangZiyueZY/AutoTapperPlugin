@@ -1,0 +1,12 @@
+{
+  "id": "ocr-text",
+  "name": "识字",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.ocrtext.OcrTextPlugin",
+  "requires": [
+    "SCREENSHOT",
+    "NETWORK"
+  ]
+}

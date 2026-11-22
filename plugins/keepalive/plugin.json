@@ -1,0 +1,9 @@
+{
+  "id": "keepalive",
+  "name": "后台保活",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.keepalive.KeepalivePlugin",
+  "requires": []
+}

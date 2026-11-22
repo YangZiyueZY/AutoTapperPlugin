@@ -1,0 +1,26 @@
+// 插件 SDK：只包含契约本身 + android.* / org.json.* 的编译期桩。
+//
+// 桩留在默认 jar 里给插件主源码 compileOnly 使用；测试类路径另外提供一个
+// 排除 org.json 桩的 testSupportElements 变体，否则假 org.json 会盖住真实实现，
+// 导致 defaultConfig() 的 put/opt 全部变成空操作。
+configurations {
+    testSupportElements {
+        canBeConsumed = true
+        canBeResolved = false
+    }
+}
+
+tasks.register("testSupportJar", Jar) {
+    archiveClassifier = "test-support"
+    from sourceSets.main.output
+    // android.* 桩保留（测试里需要 SharedPreferences / Bitmap 签名），只排掉 org.json 桩
+    exclude "stubs/org/json/**"
+}
+
+artifacts {
+    testSupportElements tasks.named("testSupportJar")
+}
+
+tasks.named("jar") {
+    archiveBaseName = "autotapper-plugin-sdk"
+}

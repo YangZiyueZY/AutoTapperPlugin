@@ -1,0 +1,78 @@
+// 根构建脚本：统一 Kotlin 版本与编译目标，具体依赖写在各模块里
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.9.24" apply false
+}
+
+subprojects { sub ->
+    apply plugin: "org.jetbrains.kotlin.jvm"
+
+    group = "com.autotapper"
+    version = "0.1.0"
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+    }
+
+    // 让 jar 可复现：CI 里对 jar 算 sha256 才能稳定，同样的源码永远同样的哈希
+    tasks.withType(AbstractArchiveTask).configureEach {
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
+    }
+
+    tasks.withType(Test).configureEach {
+        // 测试全部用 JUnit 4 编写；不额外引 vintage 引擎，直接用原生运行器。
+        useJUnit()
+    }
+
+    // 协程：插件里"等宿主回调"必须是挂起等待，不能阻塞线程（引擎跑在主线程调度器上，
+    // 阻塞主线程等一个也由主线程投递的回调 = 必定卡到超时）。
+    // compileOnly 是关键：运行时用宿主 APK 里那份，插件 jar 里不能自带一份。
+    dependencies {
+        compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+
+        // 插件测试：测试里要真的跑 execute()，所以协程是 testImplementation（不是 compileOnly）。
+        // org.json 也换成真实实现——sdk 里的桩只在编译期用。
+        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+        testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
+        testImplementation 'org.json:json:20240303'
+
+        // 契约与 android 桩：插件主源码是 compileOnly :sdk，不会传递到测试类路径。
+        // 这里用排除 org.json 桩的变体，测试才能拿到真实的 org.json 实现。
+        testImplementation project(path: ":sdk", configuration: "testSupportElements")
+    }
+
+    // 假宿主只给插件测试用；testkit 自己不在这里（避免循环依赖）。
+    // afterEvaluate 之后插件自身的 dependencies 块已经执行完，这里追加不会踩到应用顺序。
+    if (sub.name != "testkit" && sub.name != "sdk") {
+        sub.afterEvaluate {
+            dependencies {
+                testImplementation project(":testkit")
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// 插件清单：每个插件模块目录下的 plugin.json 会被打进 jar 的
+// META-INF/autotapper/plugin.json。主程序「从本地文件安装」时就靠它确认
+// id 与入口类，用户不需要手输任何东西；CI 也用它核对 index.json 有没有写错。
+// ---------------------------------------------------------------------------
+subprojects { sub ->
+    sub.afterEvaluate {
+        def jarTask = sub.tasks.findByName("jar")
+        def metaFile = sub.file("plugin.json")
+        if (jarTask != null && metaFile.isFile()) {
+            jarTask.from(metaFile) {
+                rename { "plugin.json" }
+                into "META-INF/autotapper"
+            }
+        }
+    }
+}

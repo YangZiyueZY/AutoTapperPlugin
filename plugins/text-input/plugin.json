@@ -1,0 +1,11 @@
+{
+  "id": "text-input",
+  "name": "文本输入",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minHostVersionCode": 1,
+  "entryClass": "com.autotapper.plugin.textinput.TextInputPlugin",
+  "requires": [
+    "ACCESSIBILITY"
+  ]
+}

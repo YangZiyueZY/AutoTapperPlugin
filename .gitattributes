@@ -1,0 +1,19 @@
+# 统一换行：CI 在 Linux 上跑，脚本与配置一律 LF
+* text=auto eol=lf
+
+# 二进制产物不要动
+*.jar    binary
+*.sig    binary
+*.dex    binary
+*.keystore binary
+*.pem    binary
+
+# 这些文件必须保持 LF，否则 bash / python / gradle 在 Linux 上会出问题
+*.sh     text eol=lf
+*.py     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.gradle text eol=lf
+*.kt     text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf

@@ -1,0 +1,5 @@
+// 插件模块：高级点击方式（id = tap-styles）
+// 只依赖主程序契约，compileOnly 保证 sdk 的类不会被复制进 jar
+dependencies {
+    compileOnly project(":sdk")
+}
