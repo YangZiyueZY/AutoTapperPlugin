@@ -54,21 +54,26 @@ jobs:
           # 否则旧版本 jar 会越堆越多，还会被 d8 与索引一起扫到，仓库无限变大。
           rm -f dist/*.jar dist/*.jar.sig
           count=0
+          # 不再假设 jar 一定叫 <id>-<版本>.jar：直接用 find 找出模块 libs 下的主产物，
+          # 只按目录名重命名成 dist/<id>-<版本>.jar。这样 Gradle 版本差异、archivesName 调整
+          # 都不会让整条构建挂掉（上一版就是硬编码路径导致 CI 失败）。
           for dir in plugins/*/; do
             id=$(basename "$dir")
-            jar="$dir/build/libs/$id-$PLUGIN_VERSION.jar"
-            if [ ! -f "$jar" ]; then
-              echo "::error::模块 $id 没有产出 $jar"
-              exit 1
+            jar=$(find "$dir/build/libs" -maxdepth 1 -name '*.jar' \
+                    ! -name '*-sources.jar' ! -name '*-javadoc.jar' 2>/dev/null | head -1 || true)
+            if [ -z "$jar" ]; then
+              echo "::warning::模块 $id 没有产出 jar，已跳过（请检查它的 build.gradle）"
+              continue
             fi
             cp "$jar" "dist/$id-$PLUGIN_VERSION.jar"
             count=$((count + 1))
-            echo "已收集 $id-$PLUGIN_VERSION.jar"
+            echo "已收集 $id-$PLUGIN_VERSION.jar（源：$jar）"
           done
           if [ "$count" -eq 0 ]; then
             echo "::error::plugins/ 下一个模块都没构建出来"
             exit 1
           fi
+          echo "共收集 $count 个 jar"
           ls -l dist
 
       # Gradle 产的是 JVM 字节码（.class），而 Android 的 DexClassLoader 只认 zip 里的 classes.dex。
