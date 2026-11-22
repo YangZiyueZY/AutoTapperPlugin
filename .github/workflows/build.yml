@@ -78,11 +78,13 @@ jobs:
 
       # Gradle 产的是 JVM 字节码（.class），而 Android 的 DexClassLoader 只认 zip 里的 classes.dex。
       # 少了这一步，插件下发后装载时必然报 "no classes.dex"，一个都跑不起来。
+      # d8 由 tools/dex-plugins.py 自己在 $ANDROID_HOME/build-tools 下找最新版本；
+      # 不写死版本号，runner 镜像换成 34/36 时也不会因为路径不存在而失败。
       - name: 转成 Android dex（d8）
-        env:
-          ANDROID_BUILD_TOOLS: ${{ env.ANDROID_HOME }}/build-tools/35.0.0
         run: |
           set -euo pipefail
+          echo "可用 build-tools："
+          ls "${ANDROID_HOME}/build-tools" || true
           python3 tools/dex-plugins.py --dist dist --min-api 26
 
       # 下发物必须是"薄"的：只有 classes.dex + plugin.json。
